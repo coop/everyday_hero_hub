@@ -3,12 +3,14 @@
   <p><%= link_to issue.title, issue.pull_request.rels[:html].href %> by <%= issue.user.login %></p>
   <a href="<%= issue.pull_request.rels[:html].href %>" class="btn btn-default btn-sm">View on GitHub</a>
   <% if jira_ids = issue.title.scan(/\[(.*)\]/).first.try(:first).to_s.split(' ') %>
-    <% if jira_ids.many? %>
-      <% jira_ids.each do |jira_id| %>
-        <a href="https://edhdev.atlassian.net/browse/<%= jira_id %>" class="btn btn-default btn-sm">View <%= jira_id %> on JIRA</a>
+    <% if jira_ids.any? %>
+      <% if jira_ids.many? %>
+        <% jira_ids.each do |jira_id| %>
+          <a href="https://edhdev.atlassian.net/browse/<%= jira_id %>" class="btn btn-default btn-sm">View <%= jira_id %> on JIRA</a>
+        <% end %>
+      <% else %>
+        <a href="https://edhdev.atlassian.net/browse/<%= jira_ids %>" class="btn btn-default btn-sm">View on JIRA</a>
       <% end %>
-    <% else %>
-      <a href="https://edhdev.atlassian.net/browse/<%= jira_ids %>" class="btn btn-default btn-sm">View on JIRA</a>
     <% end %>
   <% end %>
 </li>
