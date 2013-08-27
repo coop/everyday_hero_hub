@@ -51,6 +51,10 @@ GEM
     hike (1.2.3)
     httpclient (2.3.4.1)
     i18n (0.6.5)
+    jira-ruby (0.1.2)
+      activesupport
+      oauth
+      railties
     kgio (2.8.0)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -59,6 +63,7 @@ GEM
     minitest (4.7.5)
     multi_json (1.7.9)
     multipart-post (1.2.0)
+    oauth (0.4.7)
     octokit (2.0.0)
       sawyer (~> 0.3.0)
     pg (0.16.0)
@@ -144,6 +149,7 @@ DEPENDENCIES
   dotenv-rails
   expose!
   faraday-http-cache
+  jira-ruby
   octokit
   pg
   pusher
