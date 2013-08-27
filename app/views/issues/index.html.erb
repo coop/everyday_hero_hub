@@ -15,62 +15,26 @@
       <div class="tab-content">
         <div class="tab-pane active" id="all-issues">
           <ul>
-            <% issues.each do |issue| %>
-              <li>
-              <p><%= issue.rels[:html].href.gsub('https://github.com/', '').gsub(/\/issues\/\d+/, '') %></p>
-              <p><%= link_to issue.title, issue.pull_request.rels[:html].href %> by <%= issue.user.login %></p>
-              <a href="<%= issue.pull_request.rels[:html].href %>" class="btn btn-default">View on GitHub</a>
-              <% if jira_id = issue.title.scan(/\[(.*)\]/).first.try(:first) %>
-                <a href="https://edhdev.atlassian.net/browse/<%= jira_id %>" class="btn btn-default">View on JIRA</a>
-              <% end %>
-              </li>
-            <% end %>
+            <%= render partial: 'issue', collection: issues %>
           </ul>
         </div>
 
         <div class="tab-pane" id="qa-issues">
           <ul>
-            <% qa_issues.each do |issue| %>
-              <li>
-              <p><%= issue.rels[:html].href.gsub('https://github.com/', '').gsub(/\/issues\/\d+/, '') %></p>
-              <p><%= link_to issue.title, issue.pull_request.rels[:html].href %> by <%= issue.user.login %></p>
-              <a href="<%= issue.pull_request.rels[:html].href %>" class="btn btn-default">View on GitHub</a>
-              <% if jira_id = issue.title.scan(/\[(.*)\]/).first.try(:first) %>
-                <a href="https://edhdev.atlassian.net/browse/<%= jira_id %>" class="btn btn-default">View on JIRA</a>
-              <% end %>
-              </li>
-            <% end %>
+            <%= render partial: 'issue', collection: qa_issues %>
           </ul>
         </div>
 
         <div class="tab-pane" id="peer-review-issues">
           <ul>
-            <% peer_review_issues.each do |issue| %>
-              <li>
-              <p><%= issue.rels[:html].href.gsub('https://github.com/', '').gsub(/\/issues\/\d+/, '') %></p>
-              <p><%= link_to issue.title, issue.pull_request.rels[:html].href %> by <%= issue.user.login %></p>
-              <a href="<%= issue.pull_request.rels[:html].href %>" class="btn btn-default">View on GitHub</a>
-              <% if jira_id = issue.title.scan(/\[(.*)\]/).first.try(:first) %>
-                <a href="https://edhdev.atlassian.net/browse/<%= jira_id %>" class="btn btn-default">View on JIRA</a>
-              <% end %>
-              </li>
-            <% end %>
+            <%= render partial: 'issue', collection: peer_review_issues %>
           </ul>
         </div>
 
         <% users.each do |user| %>
           <div class="tab-pane" id="<%= user.login %>-issues">
             <ul>
-              <% issues.select { |issue| issue.user.login == user.login }.each do |issue| %>
-                <li>
-                <p><%= issue.rels[:html].href.gsub('https://github.com/', '').gsub(/\/issues\/\d+/, '') %></p>
-                <p><%= link_to issue.title, issue.pull_request.rels[:html].href %> by <%= issue.user.login %></p>
-                <a href="<%= issue.pull_request.rels[:html].href %>" class="btn btn-default">View on GitHub</a>
-                <% if jira_id = issue.title.scan(/\[(.*)\]/).first.try(:first) %>
-                  <a href="https://edhdev.atlassian.net/browse/<%= jira_id %>" class="btn btn-default">View on JIRA</a>
-                <% end %>
-              </li>
-              <% end %>
+              <%= render partial: 'issue', collection: issues.select { |issue| issue.user.login == user.login } %>
             </ul>
           </div>
         <% end %>
