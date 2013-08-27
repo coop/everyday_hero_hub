@@ -46,6 +46,6 @@ class IssuesController < ApplicationController
   end
 
   def testers
-    %w(kanikasethi janahanEDH)
+    %w(kanikasethi janahanEDH HelenRoss)
   end
 end
