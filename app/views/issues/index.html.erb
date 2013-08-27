@@ -1,11 +1,17 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
-      <ul class="nav nav-pills">
+    <div class="col-md-3">
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="#all-issues" data-toggle="tab">All (<%= issues.size %>)</a></li>
         <li class="active"><a href="#qa-issues" data-toggle="tab">QA (<%= qa_issues.size %>)</a></li>
         <li><a href="#peer-review-issues" data-toggle="tab">Peer Review (<%= peer_review_issues.size %>)</a></li>
+        <% users.each do |user| %>
+          <li><a href="#<%= user.login %>-issues" data-toggle="tab"><%= user.login %> (<%= issues.count { |issue| issue.user.login == user.login } %>)</a></li>
+        <% end %>
       </ul>
+    </div>
 
+    <div class="col-md-9">
       <div class="tab-content">
         <div class="tab-pane active" id="qa-issues">
           <ul>
@@ -32,6 +38,21 @@
             <% end %>
           </ul>
         </div>
+
+        <% users.each do |user| %>
+          <div class="tab-pane" id="<%= user.login %>-issues">
+            <ul>
+              <% issues.select { |issue| issue.user.login == user.login }.each do |issue| %>
+                <li>
+                <%= issue.rels[:html].href.gsub('https://github.com/', '').gsub(/\/issues\/\d+/, '') %>
+                <%= link_to issue.title, issue.pull_request.rels[:html].href %>
+                <%= time_ago_in_words issue.created_at %> ago
+                by <%= issue.user.login %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

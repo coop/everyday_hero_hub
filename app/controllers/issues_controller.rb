@@ -1,8 +1,20 @@
 class IssuesController < ApplicationController
   expose :qa_issues
   expose :peer_review_issues
+  expose :issues
+  expose :users
 
   private
+
+  # All users who have open issues.
+  #
+  # @return [Array]
+  def users
+    issues.
+      map { |issue| issue.user }.
+      uniq { |user| user.login }.
+      sort_by { |user| user.login.downcase }
+  end
 
   # A pull request that has passed peer review and waiting for QA.
   #
