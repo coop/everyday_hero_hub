@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.0.0'
+
 gem 'expose', github: 'everydayhero/expose'
 gem 'faraday-http-cache'
 gem 'octokit'
