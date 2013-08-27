@@ -31,7 +31,7 @@ module Events
     def to_json
       {
         created_at: created_at,
-        repo: repo
+        repo: repo,
         state: state,
         title: title,
         url: url,
