@@ -13,7 +13,8 @@
               <li>
               <%= issue.rels[:html].href.gsub('https://github.com/', '').gsub(/\/issues\/\d+/, '') %>
               <%= link_to issue.title, issue.pull_request.rels[:html].href %>
-              <%= time_ago_in_words issue.created_at %>
+              <%= time_ago_in_words issue.created_at %> ago
+              by <%= issue.user.login %>
               </li>
             <% end %>
           </ul>
@@ -25,7 +26,8 @@
               <li>
               <%= issue.rels[:html].href.gsub('https://github.com/', '').gsub(/\/issues\/\d+/, '') %>
               <%= link_to issue.title, issue.pull_request.rels[:html].href %>
-              <%= time_ago_in_words issue.created_at %>
+              <%= time_ago_in_words issue.created_at %> ago
+              by <%= issue.user.login %>
               </li>
             <% end %>
           </ul>
