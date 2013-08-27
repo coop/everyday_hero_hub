@@ -7,6 +7,8 @@ class PostReceiveHooksController < ApplicationController
   before_action :verify_supported_event
 
   def receive
+    JIRAIssueComment.new(event).comment event.url
+
     head :no_content
   end
 
