@@ -1,44 +1,42 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-3">
-      <ul class="nav nav-pills nav-stacked">
-        <li class="active"><a href="#all-issues" data-toggle="tab">All <span class="badge pull-right"><%= issues.size %></span></a></li>
-        <li><a href="#qa-issues" data-toggle="tab">QA <span class="badge pull-right"><%= qa_issues.size %></span></a></li>
-        <li><a href="#peer-review-issues" data-toggle="tab">Peer Review <span class="badge pull-right"><%= peer_review_issues.size %></span></a></li>
-        <% users.each do |user| %>
-          <li><a href="#<%= user.login %>-issues" data-toggle="tab"><%= user.login %> <span class="badge pull-right"><%= issues.count { |issue| issue.user.login == user.login } %></span></a></li>
-        <% end %>
-      </ul>
-    </div>
+<div class="row">
+  <div class="col-md-3">
+    <ul class="nav nav-pills nav-stacked">
+      <li class="active"><a href="#all-issues" data-toggle="tab">All <span class="badge pull-right"><%= issues.size %></span></a></li>
+      <li><a href="#qa-issues" data-toggle="tab">QA <span class="badge pull-right"><%= qa_issues.size %></span></a></li>
+      <li><a href="#peer-review-issues" data-toggle="tab">Peer Review <span class="badge pull-right"><%= peer_review_issues.size %></span></a></li>
+      <% users.each do |user| %>
+        <li><a href="#<%= user.login %>-issues" data-toggle="tab"><%= user.login %> <span class="badge pull-right"><%= issues.count { |issue| issue.user.login == user.login } %></span></a></li>
+      <% end %>
+    </ul>
+  </div>
 
-    <div class="col-md-9">
-      <div class="tab-content">
-        <div class="tab-pane active" id="all-issues">
-          <ul>
-            <%= render partial: 'issue', collection: issues %>
-          </ul>
-        </div>
-
-        <div class="tab-pane" id="qa-issues">
-          <ul>
-            <%= render partial: 'issue', collection: qa_issues %>
-          </ul>
-        </div>
-
-        <div class="tab-pane" id="peer-review-issues">
-          <ul>
-            <%= render partial: 'issue', collection: peer_review_issues %>
-          </ul>
-        </div>
-
-        <% users.each do |user| %>
-          <div class="tab-pane" id="<%= user.login %>-issues">
-            <ul>
-              <%= render partial: 'issue', collection: issues.select { |issue| issue.user.login == user.login } %>
-            </ul>
-          </div>
-        <% end %>
+  <div class="col-md-9">
+    <div class="tab-content">
+      <div class="tab-pane active" id="all-issues">
+        <ul class="list-unstyled">
+          <%= render partial: 'issue', collection: issues %>
+        </ul>
       </div>
+
+      <div class="tab-pane" id="qa-issues">
+        <ul class="list-unstyled">
+          <%= render partial: 'issue', collection: qa_issues %>
+        </ul>
+      </div>
+
+      <div class="tab-pane" id="peer-review-issues">
+        <ul class="list-unstyled">
+          <%= render partial: 'issue', collection: peer_review_issues %>
+        </ul>
+      </div>
+
+      <% users.each do |user| %>
+        <div class="tab-pane" id="<%= user.login %>-issues">
+          <ul class="list-unstyled">
+            <%= render partial: 'issue', collection: issues.select { |issue| issue.user.login == user.login } %>
+          </ul>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

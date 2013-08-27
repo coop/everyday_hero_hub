@@ -6,7 +6,15 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <%= yield %>
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+      <div class="container">
+        <a class="navbar-brand" href="#">Hub</a>
+      </div>
+    </nav>
+
+    <div class="container">
+      <%= yield %>
+    </div>
 
     <%= javascript_include_tag "application" %>
   </body>
