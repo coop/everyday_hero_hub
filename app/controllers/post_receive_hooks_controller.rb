@@ -2,12 +2,14 @@ require 'ip_address_whitelist'
 
 class PostReceiveHooksController < ApplicationController
   expose :ip_address_whitelist
+  expose :event
+  expose :commenter
 
   before_action :verify_ip_address
   before_action :verify_supported_event
 
   def receive
-    JIRAIssueComment.new(event).comment event.url
+    commenter.create_comment event.url
 
     head :no_content
   end
@@ -22,6 +24,10 @@ class PostReceiveHooksController < ApplicationController
     head :forbidden unless ip_address_whitelist.include?(request.remote_ip)
   end
 
+  def commenter
+    @commenter ||= JIRAIssueComment.new event
+  end
+
   def event_header
     request.headers['X-Github-Event']
   end
@@ -31,11 +37,13 @@ class PostReceiveHooksController < ApplicationController
   end
 
   def event
-    "event/#{event_header.singularize}".classify.constantize.new payload
+    @event ||= "events/#{event_header.singularize}".classify.constantize.new payload
   end
 
   def payload
-    ActiveSupport::JSON.decode params[:payload]
+    ActiveSupport::JSON.decode params[:payload].to_s
+  rescue ActiveSupport::JSON.parse_error
+    Hash.new
   end
 
   def ip_address_whitelist
