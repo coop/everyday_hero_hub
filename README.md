@@ -20,6 +20,10 @@ the specs.
 
     $ bin/bootstrap
 
+Seeding GitHub with an endpoint to test can be achieved a rake task.
+
+    $ bin/rake github:seed
+
 ## Processes
 
 By default `foreman start` will load each entry in the Procfile. The
