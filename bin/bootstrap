@@ -1,0 +1,53 @@
+#!/bin/sh
+
+if [ ! `command -v foreman` > /dev/null ]; then
+  echo "Please ensure foreman is installed: gem install foreman"
+  exit
+fi
+
+if [ ! `command -v pow` > /dev/null ]; then
+  echo "Please ensure pow is installed: brew install pow"
+  exit
+fi
+
+# Allow end user to specify which port pow will proxy to foreman. This
+# is also the starting port that foreman will use for processes.
+# `PORT=5000 bin/bootstrap`
+if [ -z "$PORT" ]; then
+  PORT=9000
+fi
+
+# Configure bundler
+rm -rf .bundle
+mkdir .bundle
+
+echo "---
+BUNDLE_DISABLE_SHARED_GEMS: "1"
+BUNDLE_PATH: vendor/gems
+BUNDLE_WITHOUT: production
+" > .bundle/config
+
+bundle check > /dev/null 2>&1 || bundle install "$@"
+
+echo "Setting database configuration"
+if [ ! -f config/database.yml ]; then
+  cp config/database.example.yml config/database.yml
+fi
+
+echo "Setting environment variables"
+if [ ! -f .env ]; then
+  cp env.example .env
+fi
+
+echo "Setting foreman to always run on port $PORT"
+echo "port: $PORT" > .foreman
+
+echo "Forwarding all traffic on port 80 to $PORT"
+echo $PORT > $HOME/.pow/everyday-hero-hub
+
+# Setup database
+bin/rake db:setup
+bin/rake db:test:prepare
+
+# Run tests
+bin/rake
