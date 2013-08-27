@@ -1,24 +1,23 @@
 require 'ip_address_whitelist'
 
 class PostReceiveHooksController < ApplicationController
+  expose :ip_address_whitelist
+
+  before_action :verify_ip_address
   before_action :verify_supported_event
 
-  # Any supported event will be received, made better and forwarded to Pusher
-  # for rendering client side.
-  #
-  # @return nothing.
   def receive
-    if event.pull_request?
-      Pusher.trigger 'pull-requests', event.action, event.to_json
-    end
-  rescue Pusher::Error => e
-    # (Pusher::AuthenticationError, Pusher::HTTPError, or Pusher::Error)
+    head :no_content
   end
 
   private
 
   def verify_supported_event
     head :forbidden unless supported_events.include?(event_header)
+  end
+
+  def verify_ip_address
+    head :forbidden unless ip_address_whitelist.include?(request.remote_ip)
   end
 
   def event_header
@@ -35,13 +34,6 @@ class PostReceiveHooksController < ApplicationController
 
   def payload
     ActiveSupport::JSON.decode params[:payload]
-  end
-
-  def verify_ip_address
-    unless ip_address_whitelist.include? request.remote_ip
-      head :forbidden
-      false
-    end
   end
 
   def ip_address_whitelist
