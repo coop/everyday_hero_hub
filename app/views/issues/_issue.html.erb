@@ -9,7 +9,7 @@
           <a href="https://edhdev.atlassian.net/browse/<%= jira_id %>" class="btn btn-default btn-sm">View <%= jira_id %> on JIRA</a>
         <% end %>
       <% else %>
-        <a href="https://edhdev.atlassian.net/browse/<%= jira_ids %>" class="btn btn-default btn-sm">View on JIRA</a>
+        <a href="https://edhdev.atlassian.net/browse/<%= jira_ids.first %>" class="btn btn-default btn-sm">View on JIRA</a>
       <% end %>
     <% end %>
   <% end %>
