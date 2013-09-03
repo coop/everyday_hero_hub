@@ -20,19 +20,14 @@ class IssuesController < ApplicationController
   #
   # @return [Array]
   def qa_issues
-    issues.select do |issue|
-      issue.assignee && testers.include?(issue.assignee.login)
-    end
+    issues.select { |issue| issue.title =~ /\AQA/ }
   end
 
-  # Any pull request that is not assigned to QA is assumed to be in peer
-  # review.
+  # Any pull request that is not prefixed with QA.
   #
   # @return [Array]
   def peer_review_issues
-    issues.select do |issue|
-      !issue.assignee || !testers.include?(issue.assignee.login)
-    end
+    issues.select { |issue| issue.title !~ /\AQA/ }
   end
 
   # Any GitHub issue for Everyday Hero that has an associated pull request.
@@ -43,9 +38,5 @@ class IssuesController < ApplicationController
       org_issues('everydayhero', filter: 'all', direction: 'asc').
       sort_by { |issue| issue.created_at }.
       select { |issue| issue.pull_request.rels[:html] }
-  end
-
-  def testers
-    %w(kanikasethi janahanEDH HelenRoss)
   end
 end
