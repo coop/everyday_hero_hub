@@ -1,5 +1,7 @@
 class IssuesController < ApplicationController
-  expose :qa_issues
+  expose :support_backlog
+  expose :product_backlog
+  expose :unassigned_backlog
   expose :peer_review_issues
   expose :issues
   expose :users
@@ -16,6 +18,18 @@ class IssuesController < ApplicationController
       sort_by { |user| user.login.downcase }
   end
 
+  def support_backlog
+    qa_issues.select { |issue| issue.title =~ /\[SUP/ }
+  end
+
+  def product_backlog
+    qa_issues.select { |issue| issue.title =~ /\[TA/ }
+  end
+
+  def unassigned_backlog
+    qa_issues - support_backlog - product_backlog
+  end
+
   # A pull request that has passed peer review and waiting for QA.
   #
   # @return [Array]
@@ -27,7 +41,7 @@ class IssuesController < ApplicationController
   #
   # @return [Array]
   def peer_review_issues
-    issues.select { |issue| issue.title !~ /\AQA/ }
+    issues - qa_issues
   end
 
   # Any GitHub issue for Everyday Hero that has an associated pull request.
