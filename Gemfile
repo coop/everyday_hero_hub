@@ -16,7 +16,9 @@ gem 'unicorn'
 
 group :development, :test do
   gem 'dotenv-rails'
+  gem 'fakeweb', '~> 1.3'
   gem 'rspec-rails'
+  gem 'vcr', '~> 2.8.0'
 end
 
 group :production do
