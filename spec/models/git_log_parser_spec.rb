@@ -13,6 +13,16 @@ describe GitLogParser do
     assert_equal ["TA-1234", "SUP-4321"], ticket_keys
   end
 
+  it "should extract multiple jira keys from single commit" do
+    log = [
+      create_commit_log("Did some stuff on [TA-1234, TA-567 and SUP-888]")
+    ]
+
+    ticket_keys = GitLogParser.new.extract_ticket_keys(log)
+
+    assert_equal ["TA-1234", "TA-567", "SUP-888"], ticket_keys
+  end
+
   private
 
   def create_commit_log message
