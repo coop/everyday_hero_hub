@@ -1,4 +1,7 @@
 <%=params[:repo]%>
 <%=params[:from_sha]%>
 <%=params[:until_sha]%>
-<%= jira_tickets.to_s %>
+<%= render partial: 'jira_board', locals: {jira_tickets: jira_tickets} %>
+<div>
+<%= render partial: 'git_log', collection: git_log %>
+</div>

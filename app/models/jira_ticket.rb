@@ -1,7 +1,15 @@
 class JiraTicket
   def self.find keys
-    jql = keys.map { |key| "issueKey=#{key}" }.join(" or ")
-    JIRAClient.new.Issue.jql jql
+    jira = JIRAClient.new
+    keys.map { |key|
+      begin
+        Rails.cache.fetch(key, :expires_in => 1200.seconds) do
+          puts "Querying ticket #{key}"
+          jira.Issue.jql("issueKey=#{key}").first
+        end
+      rescue
+      end
+    }.compact
   end
 
   def self.categorize tickets

@@ -1,0 +1,8 @@
+<div>
+  <% ["Open", "To Do", "In Progress", "Peer Review", "Sign Off", "Done"].each do |state| %>
+    <div>
+      <h2><%= state %></h2>
+      <%= render partial: 'ticket', collection: jira_tickets[state] %>
+    </div>
+  <% end %>
+</div>
