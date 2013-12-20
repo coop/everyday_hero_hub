@@ -5,6 +5,6 @@ class GitLog
   end
 
   def self.log repo, from_sha, until_sha
-    Octokit.compare("everydayhero/supporter", from_sha, until_sha).commits
+    Octokit.compare("everydayhero/#{repo}", from_sha, until_sha).commits
   end
 end
