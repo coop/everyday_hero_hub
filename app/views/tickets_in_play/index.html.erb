@@ -1,6 +1,12 @@
-<%=params[:repo]%>
-<%=params[:from_sha]%>
-<%=params[:until_sha]%>
+<%= form_tag(tickets_in_play_url, method: "get") do %>
+  <%= label_tag(:repo, "Git Repository") %>
+  <%= text_field_tag(:repo, params['repo']) %>
+  <%= label_tag(:from_sha, "From SHA") %>
+  <%= text_field_tag(:from_sha, params['from_sha']) %>
+  <%= label_tag(:repo, "Until SHA") %>
+  <%= text_field_tag(:until_sha, params['until_sha']) %>
+  <%= submit_tag("Go") %>
+<% end %>
 <% if has_params %>
 <%= render partial: 'jira_board', locals: {jira_tickets: jira_tickets} %>
 <div class="git-log">
