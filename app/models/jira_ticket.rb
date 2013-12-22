@@ -25,6 +25,7 @@ class JiraTicket
   end
 
   def self.find_single_request keys
+    return [] if keys.empty?
     jql = keys.map { |key| "issueKey=#{key}" }.join(" or ")
     JIRAClient.new.Issue.jql jql
   end
