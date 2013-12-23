@@ -1,5 +1,5 @@
 <div>
-  <% jira_board_columns.each do |state| %>
+  <% jira_tickets.keys.each do |state| %>
     <div class="jira-column">
       <h3><%= state %></h3>
       <%= render partial: 'ticket', collection: jira_tickets[state] %>
