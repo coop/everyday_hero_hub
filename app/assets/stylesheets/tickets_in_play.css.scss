@@ -2,15 +2,21 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .jira-column {
-  width: 175px;
+  width: 250px;
   vertical-align: top;
   display: inline-block;
 }
 
 .jira-ticket {
   border: 1px solid #cccccc;
-  padding: 1px;
-  margin: 5px;
+  padding: 3px;
+  margin: 3px;
+}
+
+.jira-ticket .status {
+  font-style: italic;
+  font-size: 0.9em;
+  float: right;
 }
 
 .git-log-item {
