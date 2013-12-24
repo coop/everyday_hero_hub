@@ -1,7 +1,6 @@
 class TicketsInPlayController < ApplicationController
   expose :git_log
   expose :jira_tickets
-  expose :jira_board_columns
   expose :has_params
 
   def index

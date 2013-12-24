@@ -1,4 +1,6 @@
 class IssuesInAction
+  attr_accessor :jira_ticket_list
+
   def initialize repo, from_sha, until_sha
     @repo = repo
     @from_sha = from_sha
@@ -18,8 +20,10 @@ class IssuesInAction
   end
 
   def jira_tickets
-    @jira_tickets ||= JiraTicket.categorize jira_ticket_list
+    @jira_tickets ||= categorize_issues jira_ticket_list
   end
+
+  private
 
   def categorize_issues issues
     issues.inject(empty_issues_hash) do |hash, issue|
@@ -46,31 +50,5 @@ class IssuesInAction
     else
       "To Do"
     end
-  end
-
-  def jira_board_columns
-    other_columns + (known_columns - hidable_columns)
-  end
-
-  def columns
-    ["To Do", "In Progress", "Done"]
-  end
-
-  def hidable_columns
-    ["Open", "To Be Released", "Resolved"].inject([]) { |columns, column_name|
-      columns << column_name if jira_tickets.fetch(column_name, []).empty?
-      columns
-    }
-  end
-
-  def known_columns
-    [
-      "Open", "To Do", "In Progress", "Peer Review", "Sign Off",
-      "To Be Released", "Resolved", "Done"
-    ]
-  end
-
-  def other_columns
-    jira_tickets.keys - known_columns
   end
 end
