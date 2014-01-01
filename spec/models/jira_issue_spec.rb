@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe JiraIssue do
-  it "should list of issues for given keys" do
+  it "should find a list of issues for given keys" do
     VCR.use_cassette "jira_issues" do
       issue_keys = ["TA-1978", "TA-2135", "TA-2180"]
 

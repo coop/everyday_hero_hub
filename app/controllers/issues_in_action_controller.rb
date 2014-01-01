@@ -3,10 +3,6 @@ class IssuesInActionController < ApplicationController
   expose :jira_issues
   expose :has_params
 
-  def index
-
-  end
-
   private
 
   def has_params

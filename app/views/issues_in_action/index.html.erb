@@ -9,9 +9,9 @@
   <%= submit_tag("Go") %>
 <% end %>
 <% if has_params %>
-<%= render partial: 'jira_board', locals: {jira_issues: jira_issues} %>
-<div class="git-log">
-  <h2>Git Log</h2>
-<%= render partial: 'git_log', collection: git_log %>
-</div>
+  <%= render partial: 'jira_board', locals: {jira_issues: jira_issues} %>
+  <div class="git-log">
+    <h2>Git Log</h2>
+    <%= render partial: 'git_log', collection: git_log %>
+  </div>
 <% end %>
