@@ -1,0 +1,8 @@
+<div class="jira-issue">
+<span class="status"><%= issue.status.name %></span>
+<a href="https://edhdev.atlassian.net/browse/<%= issue.key %>" target="_blank">
+  <h4><%= issue.key %></h4>
+</a>
+<span class="author"><%= issue.assignee.displayName %></span>
+<p><%= issue.summary %></p>
+</div>

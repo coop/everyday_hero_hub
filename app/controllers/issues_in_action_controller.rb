@@ -1,6 +1,6 @@
 class IssuesInActionController < ApplicationController
   expose :git_log
-  expose :jira_tickets
+  expose :jira_issues
   expose :has_params
 
   def index
@@ -23,7 +23,7 @@ class IssuesInActionController < ApplicationController
     issues_in_action.git_log
   end
 
-  def jira_tickets
-    issues_in_action.jira_tickets
+  def jira_issues
+    issues_in_action.jira_issues
   end
 end

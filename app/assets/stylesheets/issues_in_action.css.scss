@@ -1,4 +1,4 @@
-// Place all the styles related to the tickets_in_play controller here.
+// Place all the styles related to the issues_in_play controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .jira-column {
@@ -7,16 +7,21 @@
   display: inline-block;
 }
 
-.jira-ticket {
+.jira-issue {
   border: 1px solid #cccccc;
   padding: 3px;
   margin: 3px;
 }
 
-.jira-ticket .status {
+.jira-issue .status {
   font-style: italic;
   font-size: 0.9em;
   float: right;
+}
+
+.author {
+  font-style: italic;
+  font-weight: bold;
 }
 
 .git-log-item {

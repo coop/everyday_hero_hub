@@ -1,5 +1,5 @@
 class IssuesInAction
-  attr_accessor :jira_ticket_list
+  attr_accessor :jira_issue_list
 
   def initialize repo, from_sha, until_sha
     @repo = repo
@@ -11,16 +11,16 @@ class IssuesInAction
     @git_log ||= GitLog.log(@repo, @from_sha, @until_sha).reverse
   end
 
-  def jira_ticket_keys
-    @jira_ticket_keys ||= GitLogParser.new.extract_ticket_keys git_log
+  def jira_issue_keys
+    @jira_issue_keys ||= GitLogParser.new.extract_issue_keys git_log
   end
 
-  def jira_ticket_list
-    @jira_ticket_list ||= JiraTicket.find jira_ticket_keys
+  def jira_issue_list
+    @jira_issue_list ||= JiraIssue.find jira_issue_keys
   end
 
-  def jira_tickets
-    @jira_tickets ||= categorize_issues jira_ticket_list
+  def jira_issues
+    @jira_issues ||= categorize_issues jira_issue_list
   end
 
   private

@@ -1,5 +1,5 @@
 class GitLogParser
-  def extract_ticket_keys log
+  def extract_issue_keys log
     log.inject([]) { |keys, log_entry|
       match = log_entry.commit.message.scan /((?:TA|SUP|QIB)-\d+)/
       keys << match if match

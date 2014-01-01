@@ -63,8 +63,8 @@ describe IssuesInAction do
     expected_issues = empty_issues_hash
     expected_issues[category] << issue
 
-    issues_in_action.jira_ticket_list = [issue]
-    categorized_issues = issues_in_action.jira_tickets
+    issues_in_action.jira_issue_list = [issue]
+    categorized_issues = issues_in_action.jira_issues
 
     assert_equal expected_issues, categorized_issues
   end
