@@ -1,4 +1,4 @@
-class TicketsInPlayController < ApplicationController
+class IssuesInActionController < ApplicationController
   expose :git_log
   expose :jira_tickets
   expose :has_params

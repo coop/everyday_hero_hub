@@ -1,5 +1,5 @@
 <h1>Issues in Action</h1>
-<%= form_tag(tickets_in_play_url, method: "get") do %>
+<%= form_tag(issues_in_action_url, method: "get") do %>
   <%= label_tag(:repo, "Git Repository") %>
   <%= text_field_tag(:repo, params['repo']) %>
   <%= label_tag(:from_sha, "From SHA") %>
