@@ -1,0 +1,8 @@
+<div>
+  <% jira_issues.keys.each do |state| %>
+    <div class="jira-column">
+      <h3><%= state %></h3>
+      <%= render partial: 'issue', collection: jira_issues[state] %>
+    </div>
+  <% end %>
+</div>

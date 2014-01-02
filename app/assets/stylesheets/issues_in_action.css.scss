@@ -1,0 +1,28 @@
+.jira-column {
+  width: 350px;
+  vertical-align: top;
+  display: inline-block;
+}
+
+.jira-issue {
+  border: 1px solid #cccccc;
+  padding: 3px;
+  margin: 3px;
+}
+
+.jira-issue .status {
+  font-style: italic;
+  font-size: 0.9em;
+  float: right;
+}
+
+.author {
+  font-style: italic;
+  font-weight: bold;
+}
+
+.git-log-item {
+  border: 1px solid #cccccc;
+  padding: 1px;
+  margin: 1px;
+}

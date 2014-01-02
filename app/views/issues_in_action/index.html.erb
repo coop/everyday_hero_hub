@@ -1,0 +1,17 @@
+<h1>Issues in Action</h1>
+<%= form_tag(issues_in_action_url, method: "get") do %>
+  <%= label_tag(:repo, "Git Repository") %>
+  <%= text_field_tag(:repo, params['repo']) %>
+  <%= label_tag(:from_sha, "From SHA") %>
+  <%= text_field_tag(:from_sha, params['from_sha']) %>
+  <%= label_tag(:repo, "Until SHA") %>
+  <%= text_field_tag(:until_sha, params['until_sha']) %>
+  <%= submit_tag("Go") %>
+<% end %>
+<% if has_params %>
+  <%= render partial: 'jira_board', locals: {jira_issues: jira_issues} %>
+  <div class="git-log">
+    <h2>Git Log</h2>
+    <%= render partial: 'git_log', collection: git_log %>
+  </div>
+<% end %>
