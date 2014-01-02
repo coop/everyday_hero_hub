@@ -13,7 +13,7 @@ class JiraIssue
   def self.find_multiple_requests keys
     keys.map { |key|
       begin
-        Rails.cache.fetch(key, :expires_in => 1200.seconds) do
+        Rails.cache.fetch(key, expires_in: 1200.seconds) do
           JIRAClient.new.Issue.jql("issueKey=#{key}").first
         end
       rescue

@@ -1,5 +1,5 @@
 worker_processes ENV.fetch('UNICORN_WORKERS', 3).to_i
-timeout ENV.fetch('UNICORN_TIMEOUT', 180).to_i
+timeout ENV.fetch('UNICORN_TIMEOUT', 15).to_i
 listen ENV['PORT'], backlog: ENV.fetch('UNICORN_BACKLOG', 6)
 preload_app true
 
