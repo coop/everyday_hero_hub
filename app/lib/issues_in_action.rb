@@ -33,7 +33,7 @@ class IssuesInAction
   end
 
   def empty_issues_hash
-    ["To Do", "In Progress", "Done"].inject({}) do |hash, column_name|
+    ["To Do", "In Progress", "Sign Off", "Done"].inject({}) do |hash, column_name|
       hash[column_name] = []
       hash
     end
@@ -43,9 +43,11 @@ class IssuesInAction
     case issue.status.name
     when "Open", "To Do"
       "To Do"
-    when "In Progress", "Peer Review", "Sign Off"
+    when "In Progress", "Peer Review"
       "In Progress"
-    when "Done", "Resolved", "To Be Released"
+    when "Sign Off"
+      "Sign Off"
+    when "Done", "Resolved", "To Be Released", "Closed"
       "Done"
     else
       "To Do"
