@@ -27,10 +27,10 @@ describe IssuesInAction do
     assert_issue_category issue, "In Progress"
   end
 
-  it "should group 'Sign Off' issues under 'In Progress'" do
+  it "should group 'Sign Off' issues under 'Sign Off'" do
     issue = create_issue(name: "My Issue", status: "Sign Off")
 
-    assert_issue_category issue, "In Progress"
+    assert_issue_category issue, "Sign Off"
   end
 
   it "should group 'Done' issues under 'Done'" do
@@ -47,6 +47,12 @@ describe IssuesInAction do
 
   it "should group 'To Be Released' issues under 'Done'" do
     issue = create_issue(name: "My Issue", status: "To Be Released")
+
+    assert_issue_category issue, "Done"
+  end
+
+  it "should group 'Closed' issues under 'Done'" do
+    issue = create_issue(name: "My Issue", status: "Closed")
 
     assert_issue_category issue, "Done"
   end
@@ -73,6 +79,7 @@ describe IssuesInAction do
     {
       "To Do" => [],
       "In Progress" => [],
+      "Sign Off" => [],
       "Done" => []
     }
   end
